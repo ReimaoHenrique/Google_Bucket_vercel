@@ -1,6 +1,6 @@
 import type { FastifyInstance } from "fastify";
 
-import { config } from "../config.js";
+import { config } from "../config/index.js";
 import { uploadToBucket } from "../services/upload-to-bucket.js";
 
 type UploadBase64Body = {

@@ -1,6 +1,6 @@
-import { config } from "../config.js";
+import { config } from "../config/index.js";
 import { buildObjectName } from "../object-name.js";
-import { getStorage } from "../storage.js";
+import { getStorage } from "../infra/gcs.js";
 
 export async function uploadToBucket(
   fileBytes: Uint8Array | Buffer,

@@ -1,7 +1,7 @@
 import multipart from '@fastify/multipart'
 import Fastify from 'fastify'
 
-import { config } from './config.js'
+import { config } from './config/index.js'
 import { registerRoutes } from './routes.js'
 
 export async function buildApp() {

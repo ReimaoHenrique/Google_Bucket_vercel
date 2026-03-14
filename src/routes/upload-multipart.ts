@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import type { MultipartFile } from "@fastify/multipart";
 
-import { config } from "../config.js";
+import { config } from "../config/index.js";
 import { uploadToBucket } from "../services/upload-to-bucket.js";
 
 export function registerMultipartUploadRoute(app: FastifyInstance) {
