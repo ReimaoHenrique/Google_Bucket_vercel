@@ -1,0 +1,6 @@
+.vercel
+.env*
+.local
+google-credencial.json
+node_modules
+dist
