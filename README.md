@@ -80,6 +80,29 @@ curl -X POST http://localhost:3000/upload-base64 \
 
 ---
 
+## `DELETE /bucket/folder`
+
+Remove todos os objetos com um determinado prefixo (simulando a exclusao de uma pasta) no bucket configurado.
+
+```bash
+curl -X DELETE http://localhost:3000/bucket/folder \
+  -H "content-type: application/json" \
+  -d '{"folderPath": "uploads/2024-03-14"}'
+```
+
+Campos aceitos no corpo ou query string:
+
+| Campo        | Obrigatorio | Descricao                                 |
+| ------------ | ----------- | ----------------------------------------- |
+| `folderPath` | sim*        | Prefixo/pasta relativa dentro do bucket   |
+| `prefix`     | opcional    | Alias para `folderPath`, aceita o mesmo   |
+
+> \* Informe pelo menos um dos campos.
+
+Retorna `404` caso nenhum objeto seja encontrado para o prefixo informado.
+
+---
+
 # Variáveis de Ambiente
 
 | Variável                              | Obrigatória | Descrição                     |
@@ -137,5 +160,5 @@ Este repositório existe para servir como **boilerplate reutilizável** para:
 * Integração Vercel + Google Cloud Storage
 
 ---
-
-
+ão mostrados recursos de todos os projetos.
+saas_ofcina/uploads/2026-03-14/ 
