@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify";
 
-import { config } from "./config.ts";
-import { buildObjectName } from "./object-name.ts";
-import { getStorage } from "./storage.ts";
+import { config } from "./config.js";
+import { buildObjectName } from "./object-name.js";
+import { getStorage } from "./storage.js";
 
 async function uploadToBucket(
   fileBytes: Uint8Array | Buffer,
