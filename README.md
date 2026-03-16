@@ -20,16 +20,20 @@ Este repositório funciona como **template inicial** para APIs que precisam envi
 * Recebe **upload multipart** em `POST /upload`
 * Recebe **upload base64** em `POST /upload-base64`
 * Salva arquivos no bucket configurado em `GCS_BUCKET`
+* Opcionalmente cria uma subpasta por placa (informada via campo `placa`) antes de salvar o arquivo
 * Retorna metadados do arquivo enviado
 
 Resposta típica:
 
 ```json
 {
-  "filename": "foto.jpg",
+  "ok": true,
+  "bucket": "meu-bucket",
+  "objectName": "uploads/ABC1D23/2026-03-14/uuid-foto.jpg",
   "contentType": "image/jpeg",
   "size": 245133,
-  "gcsUri": "gs://bucket/uploads/foto.jpg"
+  "gcsUri": "gs://meu-bucket/uploads/ABC1D23/2026-03-14/uuid-foto.jpg",
+  "publicUrl": "https://storage.googleapis.com/meu-bucket/uploads/ABC1D23/2026-03-14/uuid-foto.jpg"
 }
 ```
 
@@ -53,6 +57,7 @@ Upload via **multipart/form-data**
 
 ```bash
 curl -X POST http://localhost:3000/upload \
+  -F "placa=ABC1D23" \
   -F "file=@/caminho/da/foto.jpg"
 ```
 
@@ -61,6 +66,14 @@ Campo esperado:
 ```
 file
 ```
+
+Campo opcional:
+
+```
+placa (query string ou campo do formulário)
+```
+
+Quando informado, o valor de `placa` é sanitizado (`A-Z`, `0-9`, `.`, `_`, `-`) e usado para criar uma subpasta extra antes do arquivo dentro do bucket (`<prefix>/<placa>/<data>/<uuid>-arquivo.ext`). Se não for enviado, o arquivo vai direto para o prefixo padrão.
 
 ---
 
@@ -108,7 +121,7 @@ Retorna `404` caso nenhum objeto seja encontrado para o prefixo informado.
 | Variável                              | Obrigatória | Descrição                     |
 | ------------------------------------- | ----------- | ----------------------------- |
 | `GCS_BUCKET`                          | sim         | Nome do bucket                |
-| `GCS_UPLOAD_PREFIX`                   | não         | Prefixo de upload (`uploads`) |
+| `GCS_UPLOAD_PREFIX`                   | não         | Prefixo de upload (`uploads` se vazio) |
 | `MAX_FILE_SIZE_BYTES`                 | não         | Limite de tamanho do arquivo  |
 | `GCS_PUBLIC`                          | não         | Define objeto como público    |
 | `GOOGLE_APPLICATION_CREDENTIALS_JSON` | não         | Credencial JSON               |
